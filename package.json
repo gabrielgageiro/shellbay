@@ -1,0 +1,23 @@
+{
+  "name": "shellbay",
+  "version": "1.0.0",
+  "description": "Shell para cadeira de Inteligencia Artificial",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ./app -a localhost -p 9001",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielgageiro/shellbay.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gabrielgageiro/shellbay/issues"
+  },
+  "homepage": "https://github.com/gabrielgageiro/shellbay#readme",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  }
+}
