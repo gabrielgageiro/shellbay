@@ -11,11 +11,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material-data-table/0.10.10/md-data-table.min.css">
         <script src="index-controller.js"></script>
         <link rel="stylesheet" href="./styles/styles.css">
     </head>
-    <body ng-controller="IndexCtrl" layout="column">
+    <body ng-controller="IndexCtrl" layout="column" flex>
         <md-toolbar class="md-primary md-small-tb">
             <div layout="row">
                 <img style="width: 35px; height: 35px; margin-top: 4px; margin-left: 10px" src="img/narval.ico" alt="Narval logo"/>
@@ -24,5 +26,45 @@
                 </h2>
             </div>
         </md-toolbar>
+
+        <div flex layout="row" layout-align="center">
+            <div layout="column" flex="50">
+                <md-table-container>
+                    <table md-table>
+                        <thead md-head>
+                        <tr md-row>
+                            <th md-column><span>Hipóteses</span></th>
+                            <th md-column><span>Probabilidades</span></th>
+                        </tr>
+                        </thead>
+                        <tbody md-body>
+                        <tr md-row ng-repeat="p in probabilidadesHipoteses">
+                            <td md-cell>
+                                <md-input-container>
+                                    <label>Hipótese</label>
+                                    <input type="text" ng-model="p.hipotese">
+                                </md-input-container>
+                            </td>
+                            <td md-cell>
+                                <md-input-container>
+                                    <label>P(Hi)</label>
+                                    <input type="text" ng-model="p.probabilidade">
+                                </md-input-container>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <div layout="row">
+                    <div flex layout="row" layout-align="end">
+                        <md-button flex="30" class="md-primary md-raised">
+                            Adicionar
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <md-divider></md-divider>
+
     </body>
 </html>

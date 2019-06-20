@@ -1,4 +1,4 @@
-var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages'])
+var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md.data.table'])
 
     .config(function ($mdThemingProvider) {
         $mdThemingProvider.theme('default')
@@ -6,5 +6,8 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages'])
             .accentPalette('blue-grey');
     })
     .controller('IndexCtrl', function ($scope) {
-        $scope.oi = 'AAAAAAAAAAAAAAAAAAAAAAa'
+        $scope.probabilidadesHipoteses = [
+            {hipotese: 'Carie', probabilidade: 0.8},
+            {hipotese: 'Gengivite', probabilidade: 0.2}
+        ];
     });
