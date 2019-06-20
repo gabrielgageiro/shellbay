@@ -15,10 +15,14 @@
         <script src="index-controller.js"></script>
         <link rel="stylesheet" href="./styles/styles.css">
     </head>
-<body ng-controller="IndexCtrl" layout="column">
-    <span ng-bind="oi"></span>
-    <md-button class="md-raised md-primary">
-        OI
-    </md-button>
-</body>
+    <body ng-controller="IndexCtrl" layout="column">
+        <md-toolbar class="md-primary md-small-tb">
+            <div layout="row">
+                <img style="width: 35px; height: 35px; margin-top: 4px; margin-left: 10px" src="img/narval.ico" alt="Narval logo"/>
+                <h2 class="md-toolbar-tools" style="margin-top: -10px; margin-left: 10px" flex>
+                    <span>ShellBay</span>
+                </h2>
+            </div>
+        </md-toolbar>
+    </body>
 </html>
