@@ -27,9 +27,17 @@
             </div>
         </md-toolbar>
 
-        <div flex layout="row" layout-align="center">
+        <div flex layout="row" layout-align="center" style="margin-top: 5px">
             <div layout="column" flex="50">
-                <md-table-container>
+                <md-toolbar class="md-primary md-small-tb">
+                    <div layout="row">
+                        <h2 class="md-toolbar-tools" style="margin-top: -10px; margin-left: 10px" flex>
+                            <span>Probabilidade de cada hipótese</span>
+                        </h2>
+                    </div>
+                </md-toolbar>
+                <md-table-container  style="border: groove;">
+                    <label></label>
                     <table md-table>
                         <thead md-head>
                         <tr md-row>
@@ -57,7 +65,56 @@
                 </md-table-container>
                 <div layout="row">
                     <div flex layout="row" layout-align="end">
-                        <md-button flex="30" class="md-primary md-raised">
+                        <md-button flex="30" class="md-primary md-raised" ng-click="removerRowHipoteses()" ng-if="probabilidadesHipoteses.length">
+                            Remover
+                        </md-button>
+                        <md-button flex="30" class="md-primary md-raised" ng-click="addRowHipoteses()">
+                            Adicionar
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+            <div layout="column" flex="50" style="margin-left: 5px">
+                <md-toolbar class="md-primary md-small-tb">
+                    <div layout="row">
+                        <h2 class="md-toolbar-tools" style="margin-top: -10px; margin-left: 10px" flex>
+                            <span>Probabilidades evidencias</span>
+                        </h2>
+                    </div>
+                </md-toolbar>
+                <md-table-container  style="border: groove;">
+                    <label></label>
+                    <table md-table>
+                        <thead md-head>
+                        <tr md-row>
+                            <th md-column><span>Evidências</span></th>
+                            <th md-column><span>Probabilidades</span></th>
+                        </tr>
+                        </thead>
+                        <tbody md-body>
+                        <tr md-row ng-repeat="pH in probabilidadesEvidencias">
+                            <td md-cell>
+                                <md-input-container>
+                                    <label>Evidencia</label>
+                                    <input type="text" ng-model="pH.evidencia">
+                                </md-input-container>
+                            </td>
+                            <td md-cell>
+                                <md-input-container>
+                                    <label>P(Hi)</label>
+                                    <input type="text" ng-model="pH.probabilidade">
+                                </md-input-container>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                <div layout="row">
+                    <div flex layout="row" layout-align="end">
+                        <md-button flex="30" class="md-primary md-raised" ng-click="removerRowEvidencias()" ng-if="probabilidadesEvidencias.length">
+                            Remover
+                        </md-button>
+                        <md-button flex="30" class="md-primary md-raised" ng-click="addRowEvidencias()">
                             Adicionar
                         </md-button>
                     </div>
@@ -65,6 +122,5 @@
             </div>
         </div>
         <md-divider></md-divider>
-
     </body>
 </html>
