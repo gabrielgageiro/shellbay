@@ -65,11 +65,11 @@
                 </md-table-container>
                 <div layout="row">
                     <div flex layout="row" layout-align="end">
-                        <md-button flex="30" class="md-primary md-raised" ng-click="removerRowHipoteses()" ng-if="probabilidadesHipoteses.length">
-                            Remover
+                        <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas hipóteses" ng-click="addRowHipoteses()">
+                            <md-icon>add</md-icon>
                         </md-button>
-                        <md-button flex="30" class="md-primary md-raised" ng-click="addRowHipoteses()">
-                            Adicionar
+                        <md-button class="md-fab md-mini" aria-label="Remove linha das hipóteses" ng-click="removerRowHipoteses()" ng-disabled="!probabilidadesHipoteses.length">
+                            <md-icon>remove</md-icon>
                         </md-button>
                     </div>
                 </div>
@@ -111,11 +111,11 @@
                 </md-table-container>
                 <div layout="row">
                     <div flex layout="row" layout-align="end">
-                        <md-button flex="30" class="md-primary md-raised" ng-click="removerRowEvidencias()" ng-if="probabilidadesEvidencias.length">
-                            Remover
+                        <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas evidências" ng-click="addRowEvidencias()">
+                            <md-icon>add</md-icon>
                         </md-button>
-                        <md-button flex="30" class="md-primary md-raised" ng-click="addRowEvidencias()">
-                            Adicionar
+                        <md-button class="md-fab md-mini" aria-label="Remove linha das evidências" ng-click="removerRowEvidencias()" ng-disabled="!probabilidadesEvidencias.length">
+                            <md-icon>remove</md-icon>
                         </md-button>
                     </div>
                 </div>
