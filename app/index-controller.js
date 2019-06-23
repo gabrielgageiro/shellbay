@@ -12,8 +12,17 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
         ];
 
         $scope.probabilidadesEvidencias = [
-            {evidencia: 'Teste', probabilidade:0.1},
-            {evidencia: 'Teste 2', probabilidade:0.2}
+            {
+                evidencia: 'Diabetes',
+                condicoes: [
+                    {condicao: 'Sim', probabilidades: [
+                        []
+                        ]},
+                    {condicao: 'Não', probabilidades: [
+                        []
+                        ]}
+                ]
+            }
         ];
 
 
@@ -28,7 +37,7 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
         };
 
         $scope.addRowEvidencias = function () {
-            $scope.probabilidadesEvidencias.push({})
+            $scope.probabilidadesEvidencias.push({condicoes:[{probabilidades: [[]]}]})
         };
 
         $scope.removerRowEvidencias = function () {

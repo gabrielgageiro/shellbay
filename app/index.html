@@ -26,9 +26,8 @@
                 </h2>
             </div>
         </md-toolbar>
-
-        <div flex layout="row" layout-align="center" style="margin-top: 5px">
-            <div layout="column" flex="50">
+        <div layout="row" flex layout-align="center" style="margin-top: 10px">
+            <div flex="50" layout="column">
                 <md-toolbar class="md-primary md-small-tb">
                     <div layout="row">
                         <h2 class="md-toolbar-tools" style="margin-top: -10px; margin-left: 10px" flex>
@@ -37,29 +36,28 @@
                     </div>
                 </md-toolbar>
                 <md-table-container  style="border: groove;">
-                    <label></label>
                     <table md-table>
                         <thead md-head>
-                        <tr md-row>
-                            <th md-column><span>Hipóteses</span></th>
-                            <th md-column><span>Probabilidades</span></th>
-                        </tr>
+                            <tr md-row>
+                                <th md-column><span>Hipóteses</span></th>
+                                <th md-column><span>Probabilidades</span></th>
+                            </tr>
                         </thead>
                         <tbody md-body>
-                        <tr md-row ng-repeat="p in probabilidadesHipoteses">
-                            <td md-cell>
-                                <md-input-container>
-                                    <label>Hipótese</label>
-                                    <input type="text" ng-model="p.hipotese">
-                                </md-input-container>
-                            </td>
-                            <td md-cell>
-                                <md-input-container>
-                                    <label>P(Hi)</label>
-                                    <input type="text" ng-model="p.probabilidade">
-                                </md-input-container>
-                            </td>
-                        </tr>
+                            <tr md-row ng-repeat="p in probabilidadesHipoteses">
+                                <td md-cell>
+                                    <md-input-container>
+                                        <label>Hipótese</label>
+                                        <input type="text" ng-model="p.hipotese">
+                                    </md-input-container>
+                                </td>
+                                <td md-cell>
+                                    <md-input-container>
+                                        <label>P(Hi)</label>
+                                        <input type="text" ng-model="p.probabilidade">
+                                    </md-input-container>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </md-table-container>
@@ -74,53 +72,74 @@
                     </div>
                 </div>
             </div>
-            <div layout="column" flex="50" style="margin-left: 5px">
-                <md-toolbar class="md-primary md-small-tb">
-                    <div layout="row">
-                        <h2 class="md-toolbar-tools" style="margin-top: -10px; margin-left: 10px" flex>
-                            <span>Probabilidades das Evidências</span>
-                        </h2>
-                    </div>
-                </md-toolbar>
-                <md-table-container  style="border: groove;">
-                    <label></label>
-                    <table md-table>
-                        <thead md-head>
+        </div>
+        <div layout="column" flex="50" style="margin-left: 5px">
+            <md-toolbar class="md-small-tb">
+                <div layout="row">
+                    <h2 class="md-toolbar-tools" style="margin-top: -10px; margin-left: 10px" flex>
+                        <span>Probabilidades das Evidências</span>
+                    </h2>
+                </div>
+            </md-toolbar>
+            <md-table-container  style="border: groove;">
+                <table md-table>
+                    <thead md-head>
                         <tr md-row>
                             <th md-column><span>Evidências</span></th>
-                            <th md-column><span>Probabilidades</span></th>
+                            <th md-column><span></span></th>
+                            <th md-column ng-repeat="pE in probabilidadesHipoteses">
+                                <span>P(ek | {{pE.hipotese}})</span>
+                            </th>
                         </tr>
-                        </thead>
-                        <tbody md-body>
-                        <tr md-row ng-repeat="pH in probabilidadesEvidencias">
-                            <td md-cell>
-                                <md-input-container>
-                                    <label>Evidencia</label>
-                                    <input type="text" ng-model="pH.evidencia">
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row ng-repeat="pE in probabilidadesEvidencias">
+                        <td md-cell>
+                            <md-input-container>
+                                <label>Evidencia</label>
+                                <input type="text" ng-model="pE.evidencia">
+                            </md-input-container>
+                        </td>
+                        <td md-cell>
+                            <div layout="column">
+                                <md-input-container ng-repeat="c in pE.condicoes">
+                                    <label>Condição</label>
+                                    <input type="text" ng-model="c.condicao">
                                 </md-input-container>
-                            </td>
-                            <td md-cell>
-                                <md-input-container>
-                                    <label>P(Hi)</label>
-                                    <input type="text" ng-model="pH.probabilidade">
+                                <div layout="row" layout-align="end" style="margin-top: -30px">
+                                    <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas hipóteses" ng-click="pE.condicoes.push({})">
+                                        <md-icon>add</md-icon>
+                                    </md-button>
+                                    <md-button class="md-fab md-mini" aria-label="Remove linha das hipóteses" ng-click="pE.condicoes.pop()" ng-disabled="!probabilidadesHipoteses.length">
+                                        <md-icon>remove</md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </td>
+                        <td md-cell ng-repeat="pH in probabilidadesHipoteses">
+                            <div layout="column">
+                                <md-input-container ng-repeat="c in pE.condicoes">
+                                    <label>Probabilidade</label>
+                                    <input type="text" ng-model="c.probabilidades[$index][$parent.$index]">
                                 </md-input-container>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </md-table-container>
-                <div layout="row">
-                    <div flex layout="row" layout-align="end">
-                        <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas evidências" ng-click="addRowEvidencias()">
-                            <md-icon>add</md-icon>
-                        </md-button>
-                        <md-button class="md-fab md-mini" aria-label="Remove linha das evidências" ng-click="removerRowEvidencias()" ng-disabled="!probabilidadesEvidencias.length">
-                            <md-icon>remove</md-icon>
-                        </md-button>
-                    </div>
+                                <div flex layout="row" layout-align="end" style="margin-top: -30px; min-height: 52px">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <div layout="row">
+                <div flex layout="row" layout-align="end">
+                    <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas evidências" ng-click="addRowEvidencias()">
+                        <md-icon>add</md-icon>
+                    </md-button>
+                    <md-button class="md-fab md-mini" aria-label="Remove linha das evidências" ng-click="removerRowEvidencias()" ng-disabled="!probabilidadesEvidencias.length">
+                        <md-icon>remove</md-icon>
+                    </md-button>
                 </div>
             </div>
         </div>
-        <md-divider></md-divider>
     </body>
 </html>
