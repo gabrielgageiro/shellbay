@@ -19,11 +19,19 @@
     </head>
     <body ng-controller="IndexCtrl" layout="column" flex>
         <md-toolbar class="md-primary md-small-tb">
-            <div layout="row">
-                <img style="width: 35px; height: 35px; margin-top: 4px; margin-left: 10px" src="img/narval.ico" alt="Narval logo"/>
-                <h2 class="md-toolbar-tools" style="margin-top: -10px; margin-left: 10px" flex>
+            <div layout="row" class="md-toolbar-tools">
+                <img style="width: 35px; height: 35px;" src="img/narval.ico" alt="Narval logo"/>
+                <h2 flex="85" style="margin-left: 15px" flex>
                     <span>ShellBay</span>
                 </h2>
+                <md-button class="md-raised" aria-label="Learn More" ng-if="!executando" ng-click="invertExecutando()">
+                    <md-icon>play_arrow</md-icon>
+                    Executar
+                </md-button>
+                <md-button class="md-raised" aria-label="Learn More" ng-if="executando" ng-click="invertExecutando()">
+                    <md-icon>stop</md-icon>
+                    Parar
+                </md-button>
             </div>
         </md-toolbar>
         <div layout="row" flex layout-align="center" style="margin-top: 10px">

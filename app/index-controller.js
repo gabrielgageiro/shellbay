@@ -6,6 +6,8 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
             .accentPalette('blue-grey');
     })
     .controller('IndexCtrl', function ($scope) {
+        $scope.executando = false;
+
         $scope.probabilidadesHipoteses = [
             {hipotese: 'Carie', probabilidade: 0.8},
             {hipotese: 'Gengivite', probabilidade: 0.2}
@@ -46,5 +48,7 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
             }
         };
 
-
+        $scope.invertExecutando = function () {
+            $scope.executando = !$scope.executando;
+        }
     });
