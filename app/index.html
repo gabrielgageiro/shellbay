@@ -62,7 +62,7 @@
                                 <td md-cell>
                                     <md-input-container>
                                         <label>P(Hi)</label>
-                                        <input type="text" ng-model="p.probabilidade">
+                                        <input type="text" ng-model="p.probabilidade" ng-disabled="executando">
                                     </md-input-container>
                                 </td>
                             </tr>
@@ -71,10 +71,10 @@
                 </md-table-container>
                 <div layout="row">
                     <div flex layout="row" layout-align="end">
-                        <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas hipóteses" ng-click="addRowHipoteses()">
+                        <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas hipóteses" ng-click="addRowHipoteses()" ng-disabled="executando">
                             <md-icon>add</md-icon>
                         </md-button>
-                        <md-button class="md-fab md-mini" aria-label="Remove linha das hipóteses" ng-click="removerRowHipoteses()" ng-disabled="!probabilidadesHipoteses.length">
+                        <md-button class="md-fab md-mini" aria-label="Remove linha das hipóteses" ng-click="removerRowHipoteses()" ng-disabled="!probabilidadesHipoteses.length || executando">
                             <md-icon>remove</md-icon>
                         </md-button>
                     </div>
@@ -110,15 +110,22 @@
                         </td>
                         <td md-cell>
                             <div layout="column">
-                                <md-input-container ng-repeat="c in pE.condicoes">
-                                    <label>Condição</label>
-                                    <input type="text" ng-model="c.condicao">
-                                </md-input-container>
+                                <div layout="row" ng-repeat="c in pE.condicoes">
+                                    <md-checkbox flex="15" ng-if="executando"></md-checkbox>
+                                    <md-input-container flex="20" ng-if="executando">
+                                        <label>%</label>
+                                        <input type="text" ng-model="c.porcentoCondicao">
+                                    </md-input-container>
+                                    <md-input-container flex>
+                                        <label>Condição</label>
+                                        <input type="text" ng-model="c.condicao">
+                                    </md-input-container>
+                                </div>
                                 <div layout="row" layout-align="end" style="margin-top: -30px">
-                                    <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas hipóteses" ng-click="pE.condicoes.push({})">
+                                    <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas hipóteses" ng-click="pE.condicoes.push({})" ng-disabled="executando">
                                         <md-icon>add</md-icon>
                                     </md-button>
-                                    <md-button class="md-fab md-mini" aria-label="Remove linha das hipóteses" ng-click="pE.condicoes.pop()" ng-disabled="!probabilidadesHipoteses.length">
+                                    <md-button class="md-fab md-mini" aria-label="Remove linha das hipóteses" ng-click="pE.condicoes.pop()" ng-disabled="!probabilidadesHipoteses.length || executando">
                                         <md-icon>remove</md-icon>
                                     </md-button>
                                 </div>
@@ -128,7 +135,7 @@
                             <div layout="column">
                                 <md-input-container ng-repeat="c in pE.condicoes">
                                     <label>Probabilidade</label>
-                                    <input type="text" ng-model="c.probabilidades[$index][$parent.$index]">
+                                    <input type="text" ng-model="c.probabilidades[$index][$parent.$index]" ng-disabled="executando">
                                 </md-input-container>
                                 <div flex layout="row" layout-align="end" style="margin-top: -30px; min-height: 52px">
                                 </div>
@@ -140,10 +147,10 @@
             </md-table-container>
             <div layout="row">
                 <div flex layout="row" layout-align="end">
-                    <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas evidências" ng-click="addRowEvidencias()">
+                    <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas evidências" ng-click="addRowEvidencias()" ng-disabled="executando">
                         <md-icon>add</md-icon>
                     </md-button>
-                    <md-button class="md-fab md-mini" aria-label="Remove linha das evidências" ng-click="removerRowEvidencias()" ng-disabled="!probabilidadesEvidencias.length">
+                    <md-button class="md-fab md-mini" aria-label="Remove linha das evidências" ng-click="removerRowEvidencias()" ng-disabled="!probabilidadesEvidencias.length || executando">
                         <md-icon>remove</md-icon>
                     </md-button>
                 </div>
