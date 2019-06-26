@@ -62,7 +62,7 @@
                                 <td md-cell>
                                     <md-input-container>
                                         <label>P(Hi)</label>
-                                        <input type="number" ng-model="p.probabilidade" ng-disabled="executando" step="0.01">
+                                        <input type="number" ng-model="p.probabilidade" ng-disabled="executando" step="0.001">
                                     </md-input-container>
                                 </td>
                             </tr>
@@ -111,7 +111,7 @@
                         <td md-cell>
                             <div layout="column">
                                 <div layout="row" ng-repeat="c in pE.condicoes">
-                                    <md-checkbox flex="15" ng-if="executando"></md-checkbox>
+                                    <md-checkbox flex="15" ng-if="executando" aria-label="Definir 100% para condição"></md-checkbox>
                                     <md-input-container flex="20" ng-if="executando">
                                         <label>%</label>
                                         <input type="text" ng-model="c.porcentoCondicao">
@@ -135,7 +135,7 @@
                             <div layout="column">
                                 <md-input-container ng-repeat="c in pE.condicoes">
                                     <label>Probabilidade</label>
-                                    <input type="number" step="0.01" ng-model="c.probabilidades[$parent.$index]" ng-disabled="executando">
+                                    <input type="number" step="0.001" ng-model="c.probabilidades[$parent.$index]" ng-disabled="executando">
                                 </md-input-container>
                                 <div flex layout="row" layout-align="end" style="margin-top: -30px; min-height: 52px">
                                 </div>

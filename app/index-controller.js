@@ -9,18 +9,18 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
         $scope.executando = false;
 
         $scope.probabilidadesHipoteses = [
-            {hipotese: 'Carie', probabilidade: 0.8},
-            {hipotese: 'Gengivite', probabilidade: 0.2}
+            {hipotese: 'Forte', probabilidade: 0.01},
+            {hipotese: 'Média', probabilidade: 0.033},
+            {hipotese: 'Fraca', probabilidade: 0.09},
+            {hipotese: 'Nenhuma', probabilidade: 0.867}
         ];
 
         $scope.probabilidadesEvidencias = [
             {
-                evidencia: 'Diabetes',
+                evidencia: 'Alimentação',
                 condicoes: [
-                    {condicao: 'Sim', probabilidades: [
-                        ]},
-                    {condicao: 'Não', probabilidades: [
-                        ]}
+                    {condicao: 'Correta', probabilidades: [0.1, 0.4, 0.5, 0.95]},
+                    {condicao: 'Incorreta', probabilidades: [0.9, 0.6, 0.5, 0.05]}
                 ]
             }
         ];
@@ -154,7 +154,8 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                         probabilidade = condicao.probabilidades[k];
                         probabilidadeCondicao += probabilidade * $scope.probabilidadesHipoteses[k].probabilidade;
                     }
-                    console.log(probabilidadeCondicao);
+
+                    condicao.porcentoCondicao = probabilidadeCondicao * 100;
                 }
             }
         }
