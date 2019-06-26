@@ -18,10 +18,8 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 evidencia: 'Diabetes',
                 condicoes: [
                     {condicao: 'Sim', probabilidades: [
-                        []
                         ]},
                     {condicao: 'Não', probabilidades: [
-                        []
                         ]}
                 ]
             }
@@ -39,7 +37,7 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
         };
 
         $scope.addRowEvidencias = function () {
-            $scope.probabilidadesEvidencias.push({condicoes:[{probabilidades: [[]]}]})
+            $scope.probabilidadesEvidencias.push({condicoes:[{probabilidades: []}]})
         };
 
         $scope.removerRowEvidencias = function () {
@@ -85,8 +83,6 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
         };
 
         $scope.validarEvidencias = function(){
-            console.log($scope.probabilidadesEvidencias);
-
             if(!$scope.probabilidadesEvidencias.length){
                 throw 'Informe pelo menos uma envidência!';
             }
@@ -105,24 +101,28 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 for(var j=0; j<evidencia.condicoes.length; j++){
                     var condicao = evidencia.condicoes[j];
 
-                    // console.log('CONDIÇÂO');
-                    // console.log(condicao);
-
                     if(!condicao.condicao || !condicao.condicao.trim()){
                         throw 'Informe o nome da condição na linha ' + (j+1) + ' na evidência \'' + evidencia.evidencia + '\'';
                     }
 
-                    console.log(condicao.probabilidades);
-
                     if(!condicao.probabilidades || !condicao.probabilidades.length){
-                        throw 'Informe as probabilidades da condição ' + condicao.condicao + ' na evidência \'' + evidencia.evidencia + '\'';
+                        throw 'Informe as probabilidades da condição \'' + condicao.condicao + '\' na evidência \'' + evidencia.evidencia + '\'';
                     }
 
                     for(var k=0; k<condicao.probabilidades.length; k++){
                         probabilidade = condicao.probabilidades[k];
 
-                        /*console.log(condicao.condicao);
-                        console.log(probabilidade);*/
+                        if(probabilidade == null){ //Null ou undef
+                            throw 'Informe a probabilidade da condição \'' + condicao.condicao+ '\'' + ' na evidência \'' + evidencia.evidencia + '\'';
+                        }
+
+                        if(probabilidade < 0){
+                            throw '\'A probabilidade da condição \'' + condicao.condicao+ '\'' + ' na evidência \'' + evidencia.evidencia + '\' não pode ser menor que 0';
+                        }
+
+                        if(probabilidade > 1){
+                            throw '\'A probabilidade da condição \'' + condicao.condicao+ '\'' + ' na evidência \'' + evidencia.evidencia + '\' não pode ser maior que 1';
+                        }
                     }
                 }
             }
