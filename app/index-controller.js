@@ -63,8 +63,6 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 throw 'Informe pelo menos uma hipótese!';
             }
 
-            console.log($scope.probabilidadesHipoteses);
-
             for(var i=0; i<$scope.probabilidadesHipoteses.length; i++){
                 var hipotese = $scope.probabilidadesHipoteses[i];
 
@@ -86,12 +84,57 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
             }
         };
 
+        $scope.validarEvidencias = function(){
+            console.log($scope.probabilidadesEvidencias);
+
+            if(!$scope.probabilidadesEvidencias.length){
+                throw 'Informe pelo menos uma envidência!';
+            }
+
+            for(var i=0; i<$scope.probabilidadesEvidencias.length; i++){
+                var evidencia = $scope.probabilidadesEvidencias[i];
+
+                if(!evidencia.evidencia || !evidencia.evidencia.trim()){
+                    throw 'Informe o nome da evidência na linha ' + (i+1);
+                }
+
+                if(!evidencia.condicoes || !evidencia.condicoes.length){
+                    throw 'Informe pelo menos uma condição para a evidência \'' + evidencia.evidencia + '\'';
+                }
+
+                for(var j=0; j<evidencia.condicoes.length; j++){
+                    var condicao = evidencia.condicoes[j];
+
+                    // console.log('CONDIÇÂO');
+                    // console.log(condicao);
+
+                    if(!condicao.condicao || !condicao.condicao.trim()){
+                        throw 'Informe o nome da condição na linha ' + (j+1) + ' na evidência \'' + evidencia.evidencia + '\'';
+                    }
+
+                    console.log(condicao.probabilidades);
+
+                    if(!condicao.probabilidades || !condicao.probabilidades.length){
+                        throw 'Informe as probabilidades da condição ' + condicao.condicao + ' na evidência \'' + evidencia.evidencia + '\'';
+                    }
+
+                    for(var k=0; k<condicao.probabilidades.length; k++){
+                        probabilidade = condicao.probabilidades[k];
+
+                        /*console.log(condicao.condicao);
+                        console.log(probabilidade);*/
+                    }
+                }
+            }
+        };
+
         $scope.invertExecutando = function () {
             $scope.executando = !$scope.executando;
 
             if($scope.executando){
                 try {
                     $scope.validarHipoteses();
+                    $scope.validarEvidencias();
                 }catch (e) {
                     $scope.showToast(e);
                     $scope.executando = !$scope.executando; //Em caso de erro para a execução
