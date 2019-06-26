@@ -135,6 +135,7 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 try {
                     $scope.validarHipoteses();
                     $scope.validarEvidencias();
+                    $scope.calcularProbabilidadeEvidencias();
                 }catch (e) {
                     $scope.showToast(e);
                     $scope.executando = !$scope.executando; //Em caso de erro para a execução
@@ -142,4 +143,19 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
             }
 
         };
+        $scope.calcularProbabilidadeEvidencias = function () {
+            for(var i=0; i<$scope.probabilidadesEvidencias.length; i++){
+                var evidencia = $scope.probabilidadesEvidencias[i];
+
+                for(var j=0; j<evidencia.condicoes.length; j++){
+                    var condicao = evidencia.condicoes[j];
+                    var probabilidadeCondicao = 0;
+                    for(var k=0; k<condicao.probabilidades.length; k++){
+                        probabilidade = condicao.probabilidades[k];
+                        probabilidadeCondicao += probabilidade * $scope.probabilidadesHipoteses[k].probabilidade;
+                    }
+                    console.log(probabilidadeCondicao);
+                }
+            }
+        }
     });
