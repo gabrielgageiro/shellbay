@@ -56,6 +56,7 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
         };
 
         $scope.validarHipoteses = function(){
+            var somaProbabilidadeHipotese = 0 ;
 
             if(!$scope.probabilidadesHipoteses.length){
                 throw 'Informe pelo menos uma hipótese!';
@@ -79,6 +80,11 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 if(hipotese.probabilidade > 1){
                     throw 'A probabilidade da hipótese \'' + hipotese.hipotese + '\' não pode ser maior que 1';
                 }
+                somaProbabilidadeHipotese += hipotese.probabilidade;
+            }
+
+            if(somaProbabilidadeHipotese > 1){
+                throw 'A soma probabilidade das hipóteses não pode ser maior que 1';
             }
         };
 
