@@ -93,7 +93,7 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 throw 'Informe pelo menos uma envidência!';
             }
 
-            for(var i=0; i<$scope.probabilidadesEvidencias.length; i++){
+            for(var i=0; i<$scope.probabilidadesEvidencias.length; i++){ //linha
                 var evidencia = $scope.probabilidadesEvidencias[i];
 
                 if(!evidencia.evidencia || !evidencia.evidencia.trim()){
@@ -104,7 +104,7 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                     throw 'Informe pelo menos uma condição para a evidência \'' + evidencia.evidencia + '\'';
                 }
 
-                for(var j=0; j<evidencia.condicoes.length; j++){
+                for(var j=0; j<evidencia.condicoes.length; j++){ //linha
                     var condicao = evidencia.condicoes[j];
 
                     if(!condicao.condicao || !condicao.condicao.trim()){
@@ -129,6 +129,19 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                         if(probabilidade > 1){
                             throw '\'A probabilidade da condição \'' + condicao.condicao+ '\'' + ' na evidência \'' + evidencia.evidencia + '\' não pode ser maior que 1';
                         }
+                    }
+                }
+
+                var somaProbabilidadeCondicao = 0;
+
+                for (var l = 0; l < $scope.probabilidadesHipoteses.length; l++, somaProbabilidadeCondicao = 0){
+                    for(var m = 0; m < evidencia.condicoes.length; m++) { //linha
+                        var condicao = evidencia.condicoes[m];
+                        somaProbabilidadeCondicao += condicao.probabilidades[l];
+                    }
+
+                    if(somaProbabilidadeCondicao > 1){
+                        throw 'A soma das probabilidades das condições não podem ser maior que 1 na hipótese \'' + $scope.probabilidadesHipoteses[l].hipotese + '\'';
                     }
                 }
             }
