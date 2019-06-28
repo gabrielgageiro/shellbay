@@ -161,7 +161,7 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 try {
                     $scope.validarHipoteses();
                     $scope.validarEvidencias();
-                    $scope.calcularProbabilidadeEvidencias();
+                    $scope.calcularProbabilidadeTodasEvidencias ();
                 }catch (e) {
                     $scope.showToast(e);
                     $scope.executando = !$scope.executando; //Em caso de erro para a execução
@@ -169,20 +169,37 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
             }
 
         };
-        $scope.calcularProbabilidadeEvidencias = function () {
+        $scope.calcularProbabilidadeTodasEvidencias = function () {
             for(var i=0; i<$scope.probabilidadesEvidencias.length; i++){
-                var evidencia = $scope.probabilidadesEvidencias[i];
-
-                for(var j=0; j<evidencia.condicoes.length; j++){
-                    var condicao = evidencia.condicoes[j];
-                    var probabilidadeCondicao = 0;
-                    for(var k=0; k<condicao.probabilidades.length; k++){
-                        probabilidade = condicao.probabilidades[k];
-                        probabilidadeCondicao += probabilidade * $scope.probabilidadesHipoteses[k].probabilidade;
-                    }
-
-                    condicao.porcentoCondicao = probabilidadeCondicao * 100;
-                }
+                $scope.calcularProbabilidadeEvidencia($scope.probabilidadesEvidencias[i]);
             }
-        }
+        };
+
+        $scope.calcularProbabilidadeEvidencia = function(evidencia){
+            for(var j=0; j<evidencia.condicoes.length; j++){
+                var condicao = evidencia.condicoes[j];
+                var probabilidadeCondicao = 0;
+                for(var k=0; k<condicao.probabilidades.length; k++){
+                    probabilidade = condicao.probabilidades[k];
+                    probabilidadeCondicao += probabilidade * $scope.probabilidadesHipoteses[k].probabilidade;
+                }
+                condicao.porcentoCondicao = probabilidadeCondicao * 100;
+            }
+        };
+
+        $scope.checkCondicao = function (evidencia, indiceCondicao) {
+            if(evidencia.condicoes[indiceCondicao].cemPorCento){ //Marcou
+                for(var i=0; i<evidencia.condicoes.length; i++){
+                    var condicao = evidencia.condicoes[i];
+                    if(i != indiceCondicao){
+                        condicao.porcentoCondicao = 0;
+                        condicao.cemPorCento = false;
+                    }else{
+                        condicao.porcentoCondicao = 100;
+                    }
+                }
+            }else{
+                $scope.calcularProbabilidadeEvidencia(evidencia);
+            }
+        };
     });
