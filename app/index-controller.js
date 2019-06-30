@@ -7,6 +7,8 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
     })
     .controller('IndexCtrl', function ($scope, $mdToast) {
         $scope.executando = false;
+        $scope.ordemEvidencias = [];
+        $scope.cacheEvidenciasCondicoes = new Map(); //Indice da evidencia / indice da condicao
 
         $scope.probabilidadesHipoteses = [
             {hipotese: 'Forte', probabilidade: 0.01},
@@ -87,6 +89,8 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 if(hipotese.probabilidade > 1){
                     throw 'A probabilidade da hipótese \'' + hipotese.hipotese + '\' não pode ser maior que 1';
                 }
+
+                hipotese.valorOriginal = hipotese.probabilidade;
                 somaProbabilidadeHipotese += hipotese.probabilidade;
             }
 
@@ -161,13 +165,30 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 try {
                     $scope.validarHipoteses();
                     $scope.validarEvidencias();
-                    $scope.calcularProbabilidadeTodasEvidencias ();
+                    $scope.calcularProbabilidadeTodasEvidencias();
                 }catch (e) {
                     $scope.showToast(e);
                     $scope.executando = !$scope.executando; //Em caso de erro para a execução
                 }
-            }
+            }else{
+                //Ao parar a execução retornar os estados aos valores originais
+                $scope.ordemEvidencias = [];
+                $scope.cacheEvidenciasCondicoes.clear();
 
+                for(var i=0; i<$scope.probabilidadesHipoteses.length; i++){
+                    var hipotese = $scope.probabilidadesHipoteses[i];
+
+                    hipotese.probabilidade = hipotese.valorOriginal;
+                }
+
+                for(var i=0; i<$scope.probabilidadesEvidencias.length; i++) { //linha
+                    var evidencia = $scope.probabilidadesEvidencias[i];
+
+                    for (var j = 0; j < evidencia.condicoes.length; j++) { //linha
+                        evidencia.condicoes[j].cemPorCento = false;
+                    }
+                }
+            }
         };
         $scope.calcularProbabilidadeTodasEvidencias = function () {
             for(var i=0; i<$scope.probabilidadesEvidencias.length; i++){
@@ -183,23 +204,63 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                     probabilidade = condicao.probabilidades[k];
                     probabilidadeCondicao += probabilidade * $scope.probabilidadesHipoteses[k].probabilidade;
                 }
-                condicao.porcentoCondicao = probabilidadeCondicao * 100;
+                condicao.porcentoCondicao = probabilidadeCondicao;
             }
         };
 
-        $scope.checkCondicao = function (evidencia, indiceCondicao) {
+        $scope.calcularProbabilidadeHipoteses = function(){
+
+            console.log($scope.ordemEvidencias);
+
+            if(!$scope.ordemEvidencias.length){
+                for(var i=0; i<$scope.probabilidadesHipoteses.length; i++){
+                    var hipotese = $scope.probabilidadesHipoteses[i];
+
+                    hipotese.probabilidade = hipotese.valorOriginal;
+                }
+            }else{
+                for(var i=0; i<$scope.ordemEvidencias.length; i++){
+                    var indice = $scope.ordemEvidencias[i];
+                    var condicao = $scope.probabilidadesEvidencias[indice].condicoes[$scope.cacheEvidenciasCondicoes.get(indice)];
+
+                    for(var i=0; i<$scope.probabilidadesHipoteses.length; i++){
+                        var hipotese = $scope.probabilidadesHipoteses[i];
+                        hipotese.probabilidade = hipotese.probabilidade * condicao.probabilidades[i] / (condicao.porcentoCondicao);
+                    }
+                }
+            }
+        };
+
+        $scope.checkCondicao = function (evidencia, indiceEvidencia, indiceCondicao) {
+
+            for(var i=0; i<$scope.ordemEvidencias.length; i++){
+                if($scope.ordemEvidencias[i] == indiceEvidencia){
+                    $scope.ordemEvidencias.splice(i, 1);
+                    break;
+                }
+            }
+
+            $scope.cacheEvidenciasCondicoes.delete(indiceEvidencia);
+
             if(evidencia.condicoes[indiceCondicao].cemPorCento){ //Marcou
+                $scope.ordemEvidencias.push(indiceEvidencia);
+                $scope.cacheEvidenciasCondicoes.set(indiceEvidencia, indiceCondicao);
+                $scope.calcularProbabilidadeHipoteses();
+
                 for(var i=0; i<evidencia.condicoes.length; i++){
                     var condicao = evidencia.condicoes[i];
                     if(i != indiceCondicao){
                         condicao.porcentoCondicao = 0;
                         condicao.cemPorCento = false;
+
+                        console.log('cai');
                     }else{
-                        condicao.porcentoCondicao = 100;
+                        condicao.porcentoCondicao = 1;
                     }
                 }
             }else{
                 $scope.calcularProbabilidadeEvidencia(evidencia);
+                $scope.calcularProbabilidadeHipoteses();
             }
         };
     });

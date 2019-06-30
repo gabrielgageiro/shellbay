@@ -111,7 +111,7 @@
                         <td md-cell>
                             <div layout="column">
                                 <div layout="row" ng-repeat="c in pE.condicoes">
-                                    <md-checkbox ng-model="c.cemPorCento" flex="15" ng-if="executando" aria-label="Definir 100% para condição" ng-change="checkCondicao(pE, $index)"></md-checkbox>
+                                    <md-checkbox ng-model="c.cemPorCento" flex="15" ng-if="executando" aria-label="Definir 100% para condição" ng-change="checkCondicao(pE, $parent.$parent.$index, $index)"></md-checkbox>
                                     <md-input-container flex="20" ng-if="executando">
                                         <label>%</label>
                                         <input type="text" ng-model="c.porcentoCondicao" disabled>
