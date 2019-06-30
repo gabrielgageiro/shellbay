@@ -122,7 +122,7 @@
                                     </md-input-container>
                                 </div>
                                 <div layout="row" layout-align="end" style="margin-top: -30px">
-                                    <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas hipóteses" ng-click="pE.condicoes.push({})" ng-disabled="executando">
+                                    <md-button class="md-fab md-mini" aria-label="Adiciona uma linha nas hipóteses" ng-click="pE.condicoes.push({probabilidades:[]})" ng-disabled="executando">
                                         <md-icon>add</md-icon>
                                     </md-button>
                                     <md-button class="md-fab md-mini" aria-label="Remove linha das hipóteses" ng-click="pE.condicoes.pop()" ng-disabled="!probabilidadesHipoteses.length || executando">
