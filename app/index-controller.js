@@ -210,8 +210,6 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
 
         $scope.calcularProbabilidadeHipoteses = function(){
 
-            console.log($scope.ordemEvidencias);
-
             if(!$scope.ordemEvidencias.length){
                 for(var i=0; i<$scope.probabilidadesHipoteses.length; i++){
                     var hipotese = $scope.probabilidadesHipoteses[i];
@@ -252,15 +250,13 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                     if(i != indiceCondicao){
                         condicao.porcentoCondicao = 0;
                         condicao.cemPorCento = false;
-
-                        console.log('cai');
                     }else{
                         condicao.porcentoCondicao = 1;
                     }
                 }
             }else{
-                $scope.calcularProbabilidadeEvidencia(evidencia);
                 $scope.calcularProbabilidadeHipoteses();
+                $scope.calcularProbabilidadeEvidencia(evidencia);
             }
         };
     });
