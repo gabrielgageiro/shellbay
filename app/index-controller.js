@@ -174,12 +174,8 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 //Ao parar a execução retornar os estados aos valores originais
                 $scope.ordemEvidencias = [];
                 $scope.cacheEvidenciasCondicoes.clear();
+                $scope.resetProbabilidadeHipoteses();
 
-                for(var i=0; i<$scope.probabilidadesHipoteses.length; i++){
-                    var hipotese = $scope.probabilidadesHipoteses[i];
-
-                    hipotese.probabilidade = hipotese.valorOriginal;
-                }
 
                 for(var i=0; i<$scope.probabilidadesEvidencias.length; i++) { //linha
                     var evidencia = $scope.probabilidadesEvidencias[i];
@@ -190,6 +186,15 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                 }
             }
         };
+
+        $scope.resetProbabilidadeHipoteses = function(){
+            for(var i=0; i<$scope.probabilidadesHipoteses.length; i++){
+                var hipotese = $scope.probabilidadesHipoteses[i];
+
+                hipotese.probabilidade = hipotese.valorOriginal;
+            }
+        };
+
         $scope.calcularProbabilidadeTodasEvidencias = function () {
             for(var i=0; i<$scope.probabilidadesEvidencias.length; i++){
                 $scope.calcularProbabilidadeEvidencia($scope.probabilidadesEvidencias[i]);
