@@ -31,6 +31,20 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                     {condicao: 'Sim', probabilidades: [0.9, 0.7, 0.55, 0.05]},
                     {condicao: 'Não', probabilidades: [0.1, 0.3, 0.45, 0.95]}
                 ]
+            },
+            {
+                evidencia: 'Estresse',
+                condicoes: [
+                    {condicao: 'Sim', probabilidades: [0.2, 0.7, 0.8, 0.5]},
+                    {condicao: 'Não', probabilidades: [0.8, 0.3, 0.2, 0.5]}
+                ]
+            },
+            {
+                evidencia: 'Estresse',
+                condicoes: [
+                    {condicao: 'Sim', probabilidades: [0.7, 0.8, 0.6, 0.02]},
+                    {condicao: 'Não', probabilidades: [0.3, 0.2, 0.4, 0.98]}
+                ]
             }
         ];
 
