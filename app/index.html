@@ -21,7 +21,7 @@
         <md-toolbar class="md-primary md-small-tb">
             <div layout="row" class="md-toolbar-tools">
                 <img style="width: 35px; height: 35px;" src="img/narval.ico" alt="Narval logo"/>
-                <h2 flex="85" style="margin-left: 15px" flex>
+                <h2 flex="80" style="margin-left: 15px" flex>
                     <span>ShellBay</span>
                 </h2>
                 <md-button class="md-raised" aria-label="Learn More" ng-if="!executando" ng-click="invertExecutando()">
@@ -32,6 +32,34 @@
                     <md-icon>stop</md-icon>
                     Parar
                 </md-button>
+                <md-menu ng-if="!executando" flex="5">
+                    <md-button aria-label="Menu de exemplos" class="md-icon-button" ng-click="$mdMenu.open($event);">
+                        <md-icon>more_vert</md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                        <md-menu-item>
+                            <label>Exemplos:</label>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="setExemplo1()">
+                                <md-icon md-menu-align-target>looks_one</md-icon>
+                                Dores
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="setExemplo2()">
+                                <md-icon md-menu-align-target>looks_two</md-icon>
+                                Problemas Bucais
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="setExemplo3()">
+                                <md-icon md-menu-align-target>looks_3</md-icon>
+                                Queimada
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </div>
         </md-toolbar>
         <div layout="row" flex layout-align="center" style="margin-top: 10px">

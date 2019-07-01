@@ -10,48 +10,9 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
         $scope.ordemEvidencias = [];
         $scope.cacheEvidenciasCondicoes = new Map(); //Indice da evidencia / indice da condicao
 
-       /* $scope.probabilidadesHipoteses = [
-            {hipotese: 'Forte', probabilidade: 0.01},
-            {hipotese: 'Média', probabilidade: 0.033},
-            {hipotese: 'Fraca', probabilidade: 0.09},
-            {hipotese: 'Nenhuma', probabilidade: 0.867}
-        ];*/
+       $scope.probabilidadesHipoteses = [];
 
-        $scope.probabilidadesHipoteses = JSON.parse("[{\"hipotese\":\"Cárie\",\"probabilidade\":0.8,\"valorOriginal\":0.8},{\"hipotese\":\"Gengivite\",\"probabilidade\":0.2,\"valorOriginal\":0.2}]");
-
-        /*$scope.probabilidadesEvidencias = [
-            {
-                evidencia: 'Alimentação',
-                condicoes: [
-                    {condicao: 'Correta', probabilidades: [0.1, 0.4, 0.5, 0.95]},
-                    {condicao: 'Incorreta', probabilidades: [0.9, 0.6, 0.5, 0.05]}
-                ]
-            },
-            {
-                evidencia: 'Álcool',
-                condicoes: [
-                    {condicao: 'Sim', probabilidades: [0.9, 0.7, 0.55, 0.05]},
-                    {condicao: 'Não', probabilidades: [0.1, 0.3, 0.45, 0.95]}
-                ]
-            },
-            {
-                evidencia: 'Estresse',
-                condicoes: [
-                    {condicao: 'Sim', probabilidades: [0.2, 0.7, 0.8, 0.5]},
-                    {condicao: 'Não', probabilidades: [0.8, 0.3, 0.2, 0.5]}
-                ]
-            },
-            {
-                evidencia: 'Mudança Climática',
-                condicoes: [
-                    {condicao: 'Sim', probabilidades: [0.7, 0.8, 0.6, 0.02]},
-                    {condicao: 'Não', probabilidades: [0.3, 0.2, 0.4, 0.98]}
-                ]
-            }
-        ];*/
-
-        $scope.probabilidadesEvidencias = JSON.parse("[{\"condicoes\":[{\"probabilidades\":[0.63,0.65],\"condicao\":\"Sim\",\"porcentoCondicao\":0.634,\"cemPorCento\":false},{\"probabilidades\":[0.37,0.35],\"condicao\":\"Não\",\"porcentoCondicao\":0.366,\"cemPorCento\":false}],\"evidencia\":\"Diabetes\"},{\"condicoes\":[{\"probabilidades\":[0.4,0.35],\"condicao\":\"Correta\"},{\"probabilidades\":[0.6,0.65],\"condicao\":\"Incorreta\"}],\"evidencia\":\"Posição do dente\"},{\"condicoes\":[{\"probabilidades\":[0.57,0.8],\"condicao\":\"Sim\"},{\"probabilidades\":[0.43,0.2],\"condicao\":\"Não\"}],\"evidencia\":\"Hereditariedade\"},{\"condicoes\":[{\"probabilidades\":[0.35,0.95],\"condicao\":\"Sim\"},{\"probabilidades\":[0.65,0.05],\"condicao\":\"Não\"}],\"evidencia\":\"Fluoretação da água\"},{\"condicoes\":[{\"probabilidades\":[0.2,0.4],\"condicao\":\"Adequada\"},{\"probabilidades\":[0.8,0.6],\"condicao\":\"Inadequada\"}],\"evidencia\":\"Higienização\"}]");
-
+        $scope.probabilidadesEvidencias = [];
 
         $scope.addRowHipoteses = function () {
             $scope.probabilidadesHipoteses.push({})
@@ -286,5 +247,121 @@ var ShellBayApp = angular.module('ShellBayApp', ['ngMaterial', 'ngMessages', 'md
                     }
                 }
             }
+        };
+
+        $scope.setExemplo1 = function () {
+            $scope.probabilidadesHipoteses = [
+              {hipotese: 'Forte', probabilidade: 0.01},
+              {hipotese: 'Média', probabilidade: 0.033},
+              {hipotese: 'Fraca', probabilidade: 0.09},
+              {hipotese: 'Nenhuma', probabilidade: 0.867}
+            ];
+
+            $scope.probabilidadesEvidencias = [
+                {
+                    evidencia: 'Alimentação',
+                    condicoes: [
+                        {condicao: 'Correta', probabilidades: [0.1, 0.4, 0.5, 0.95]},
+                        {condicao: 'Incorreta', probabilidades: [0.9, 0.6, 0.5, 0.05]}
+                    ]
+                },
+                {
+                    evidencia: 'Álcool',
+                    condicoes: [
+                        {condicao: 'Sim', probabilidades: [0.9, 0.7, 0.55, 0.05]},
+                        {condicao: 'Não', probabilidades: [0.1, 0.3, 0.45, 0.95]}
+                    ]
+                },
+                {
+                    evidencia: 'Estresse',
+                    condicoes: [
+                        {condicao: 'Sim', probabilidades: [0.2, 0.7, 0.8, 0.5]},
+                        {condicao: 'Não', probabilidades: [0.8, 0.3, 0.2, 0.5]}
+                    ]
+                },
+                {
+                    evidencia: 'Mudança Climática',
+                    condicoes: [
+                        {condicao: 'Sim', probabilidades: [0.7, 0.8, 0.6, 0.02]},
+                        {condicao: 'Não', probabilidades: [0.3, 0.2, 0.4, 0.98]}
+                    ]
+                }
+            ];
+        };
+
+        $scope.setExemplo2 = function () {
+            $scope.probabilidadesHipoteses = [
+                {hipotese: "Cárie", probabilidade: 0.8},
+                {hipotese: "Gengivite", probabilidade: 0.2}
+            ];
+
+            $scope.probabilidadesEvidencias = [
+                {
+                    evidencia:"Diabetes",
+                    condicoes:[
+                        {condicao:"Sim", probabilidades:[0.63,0.65]},
+                        {condicao:"Não", probabilidades:[0.37,0.35]}
+                    ]
+                },
+                {
+                    evidencia:"Posição do dente",
+                    condicoes:[
+                        {condicao:"Correta", probabilidades:[0.4,0.35]},
+                        {condicao:"Incorreta", probabilidades:[0.6,0.65]}
+                    ]
+                },
+                {
+                    evidencia:"Hereditariedade",
+                    condicoes:[
+                        {condicao:"Sim", probabilidades:[0.57,0.8]},
+                        {condicao:"Não", probabilidades:[0.43,0.2]}
+                    ]
+                },
+                {
+                    evidencia:"Fluoretação da água",
+                    condicoes:[
+                        {condicao:"Sim", probabilidades:[0.35,0.95]},
+                        {condicao:"Não", probabilidades:[0.65,0.05]}
+                    ]
+                },
+                {
+                    evidencia:"Higienização",
+                    condicoes:[
+                        {condicao:"Adequada", probabilidades:[0.2,0.4]},
+                        {condicao:"Inadequada", probabilidades:[0.8,0.6]}
+                    ]
+                }
+            ];
+        };
+
+        $scope.setExemplo3 = function () {
+            $scope.probabilidadesHipoteses = [
+                {hipotese:"Abaixo de 417 focos", probabilidade: 0.88},
+                {hipotese: "Entre 417 e 834 focos", probabilidade: 0.12}
+            ];
+
+            $scope.probabilidadesEvidencias = [
+                {
+                    evidencia:"Umidade relativa do ar (%)",
+                    condicoes:[
+                        {condicao: "Abaixo de 54%", probabilidades:[0.5,0.8]},
+                        {condicao:"Acima de 54%", probabilidades: [0.5,0.2]}
+                    ]
+                },
+                {
+                    evidencia: "Temperatura média (°C)",
+                    condicoes:[
+                        {condicao:"Abaixo de 27 °C", probabilidades: [0.6,0.3]},
+                        {condicao:"Acima de 27 °C", probabilidades: [0.4,0.7]}
+                    ]
+                },
+                {
+                    evidencia:"Velocidade do vento (m/s)",
+                    condicoes:[
+                        {condicao: "Abaixo de 2m/s", probabilidades: [0.51,0.1]},
+                        {condicao: "Acima de 2m/s", probabilidades: [0.49,0.9]}
+                    ]
+                }
+            ];
         };
     });
