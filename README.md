@@ -2,7 +2,7 @@
 Shell de Rede Bayesiana para disciplina de Inteligência Artificial
 
 **Acesso:**  
-O projeto está disponível online [aqui](https://shellbay.marcelorezin.com.br/).  
+O projeto está disponível online [aqui](https://shellbay.gabrielgageiro.dev/).  
 
 **Tecnologias utilizadas:**  
 - [AngularJS](https://angularjs.org/)  
